@@ -15,16 +15,17 @@ export default function Login() {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    setError("");
-    setLoading(true);
-    logIn(emailRef.current.value, passwordRef.current.value)
-      .then(() => {
-        navigate(from, { replace: true });
-      })
-      .catch(() => setError("log in Failed, Please Check email or password"));
+    try {
+      setError("");
+      setLoading(true);
+      await logIn(emailRef.current.value, passwordRef.current.value);
+      navigate(from, { replace: true });
+    } catch {
+      setError("log in Failed, Please Check email or password");
+    }
 
     setLoading(false);
   }
@@ -49,7 +50,7 @@ export default function Login() {
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Forgot Password?</Link>
+            <Link to="/reset-password">Forgot Password?</Link>
           </div>
         </Card.Body>
       </Card>

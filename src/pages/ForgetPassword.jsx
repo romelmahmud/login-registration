@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 export default function ForgotPassword() {
   const emailRef = useRef();
-  const { resetPassword } = useAuth();
+  const { resetPassword } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ export default function ForgotPassword() {
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button disabled={loading} className="w-100 mt-3" type="submit">
               Reset Password
             </Button>
           </Form>

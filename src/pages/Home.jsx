@@ -1,7 +1,6 @@
-import { async } from "@firebase/util";
 import React, { useContext, useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 const Home = () => {
@@ -11,7 +10,7 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const { user, logOut, verifyEmail } = useContext(AuthContext);
+  const { user, logOut, verifyEmail, updatePassword } = useContext(AuthContext);
 
   const handleLogout = () => {
     logOut(() => {
@@ -41,6 +40,9 @@ const Home = () => {
         </h2>
         {error && <Alert variant="danger">{error}</Alert>}
         {message && <Alert variant="success">{message}</Alert>}
+        <Link to="/update-password">
+          <Button className="btn-primary m-4">Update Password</Button>
+        </Link>
       </Card>
       <div className="w-100 text-center mt-2">
         {!user.emailVerified && (
