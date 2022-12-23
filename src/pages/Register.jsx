@@ -20,7 +20,6 @@ export default function Register() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
     setError("");
     setLoading(true);
     registerUser(emailRef.current.value, passwordRef.current.value)

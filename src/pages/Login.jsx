@@ -1,8 +1,8 @@
 import React, { useContext, useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-// import { useAuth } from "../contexts/AuthContext"
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Login() {
   const emailRef = useRef();
@@ -11,13 +11,20 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   function handleSubmit(e) {
     e.preventDefault();
 
     setError("");
     setLoading(true);
-
-    setError("Failed to log in");
+    logIn(emailRef.current.value, passwordRef.current.value)
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch(() => setError("log in Failed, Please Check email or password"));
 
     setLoading(false);
   }
