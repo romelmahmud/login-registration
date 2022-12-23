@@ -23,7 +23,8 @@ export default function Register() {
     setError("");
     setLoading(true);
     registerUser(emailRef.current.value, passwordRef.current.value)
-      .then(() => {
+      .then((result) => {
+        console.log(result.user.emailVerified);
         const userInfo = {
           displayName: nameRef.current.value,
         };
